@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	
+	<!-- 글 등록 -->
+	<insert id="insertBoard">
+	<![CDATA[
+		insert into board2(title, content, writer, password, file, write_ip)
+		values(#{title}, #{content}, #{writer}, #{password}, #{file}, #{write_ip})
+	]]>
+	</insert>
+	
+	<!-- 글 목록 -->
+	<select id="getBoardList" resultType="com.spring.notice.vo.BoardVO">
+	<![CDATA[
+		select * from board2
+	]]>
+	</select>
+	
+	<!-- 글 상세 -->
+	<select id="getBoard" resultType="com.spring.notice.vo.BoardVO">
+		<![CDATA[
+			select * from board2 where num = #{num}
+		]]>
+	</select>
+	
+	<!-- 글 수정 : 파일 x -->
+	<update id="modifyBoard">
+	<![CDATA[
+		update board2 set title = #{title}, content = #{content}, update_ip = #{update_ip}, update_date = now() where num = #{num}
+	]]>
+	</update>
+	
+	<!-- 글 수정 : 파일 o -->
+	<update id="modiFileBoard">
+	<![CDATA[
+		update board2 set title = #{title}, content = #{content}, file = #{file}, update_ip = #{update_ip}, update_date = now() where num = #{num}
+	]]>
+	</update>
+	
+	
+	<!-- 글 삭제 -->
+	<delete id="deleteBoard">
+	<![CDATA[
+		delete from board2 where num = #{num} 
+	]]>
+	</delete>
+	
+	<!-- 전체 게시글 개수 조회 -->
+	<select id="count" resultType="int">
+	<![CDATA[
+		select count(*) from board2
+	]]>
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="HitUpdate">
+	<![CDATA[
+		update board2 set hit = hit + 1 where num = #{num}
+	]]>
+	</update>
+	
+	
+</mapper>
