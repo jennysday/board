@@ -1,4 +1,4 @@
-# spring 게시판
+# spring + jsp 게시판
 - CRUD
 - 아이피 확인
 - 조회수 증가
