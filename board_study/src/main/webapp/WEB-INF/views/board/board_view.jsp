@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,10 +19,21 @@
 			<th>게시글 번호</th>
 			<td><c:out value="${result.board.num}"></c:out></td>
 		</tr>
-		<tr>
-			<th>제목</th>
-			<td><c:out escapeXml="false" value="${result.board.title}"></c:out></td>
-		</tr>
+		<c:set var = "title" value = "${result.board.title}"/>
+		<c:choose>
+			<c:when test="${fn:contains(title,'script')}">
+				<tr>
+					<th>제목</th>
+					<td><c:out escapeXml="false" value="${result.board.title}"></c:out></td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<th>제목</th>
+					<td><c:out escapeXml="true" value="${result.board.title}"></c:out></td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
 		<tr>
 			<th>조회수</th>
 			<td><c:out value="${result.board.hit}"></c:out></td>
@@ -29,10 +41,6 @@
 		<tr>
 			<th>작성자</th>
 			<td><c:out value="${result.board.writer}"></c:out></td>
-		</tr>
-		<tr>
-			<th>비밀번호</th>
-			<td><c:out value="${result.board.password}"></c:out></td>
 		</tr>
 		<tr>
 			<th>내용</th>
@@ -62,14 +70,15 @@
 			<tr>
 				<th>첨부파일</th>
 				<td><img alt="첨부파일" src="/upload2/${result.board.file}"></td>
+				<td><a href="fileDown?path=${result.board.file}">파일 다운</a></td>
 			</tr>
 		</c:if>
 		<tr>
 			<td>
-				<a href="modifyView.do?num=${result.board.num}">[수정]</a>
-				<a href="deleteView.do?num=${result.board.num}">[삭제]</a>
+				<a href="modifyView.do?num=${result.board.num}&page=${result.page}">[수정]</a>
+				<a href="deleteView.do?num=${result.board.num}&page=${result.page}">[삭제]</a>
 				<a href="javascript:history.go(-1)">[뒤로]</a>
-				<a href="boardList.do">[목록]</a>
+				<a href="boardList.do?page=${result.page}">[목록]</a>
 			</td>
 		</tr>
 	</table>

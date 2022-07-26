@@ -13,11 +13,38 @@
 	</insert>
 	
 	<!-- 글 목록 -->
-	<select id="getBoardList" resultType="com.spring.notice.vo.BoardVO">
-	<![CDATA[
-		select * from board2
-	]]>
+	<!-- 게시글 리스트 최신순 정렬 (페이징 처리 x) -->
+	<select id="getBoardList0" resultType="com.spring.notice.vo.BoardVO" parameterType="com.spring.notice.vo.PagingVO">
+		<![CDATA[
+ 			select rownum, num, title, content, writer, password, file, hit, write_date, update_date, write_ip, update_ip
+			from (
+				select @rownum := @rownum + 1 as rownum, num, title, content, writer, password, file, hit, write_date, update_date, write_ip, update_ip
+				from board2
+		        where (@rownum := 0) = 0 
+				order by num desc 
+			) A
+ 		]]>
 	</select>
+	<!-- 
+	where (@rownum := 0) = 0 
+	-  SET @rownum:=0; 와 같다. / rownum을 0으로 초기화 시킨다는 의미
+	 -->
+	
+	 <!-- 게시글 리스트 최신순 정렬 (페이징 처리 o) -->
+	 <select id="getBoardList" resultType="com.spring.notice.vo.BoardVO" parameterType="com.spring.notice.vo.PagingVO">
+	 <![CDATA[
+	 	select *
+	 	from (
+	 		select rownum, num, title, content, writer, password, file, hit, write_date, update_date, write_ip, update_ip
+	 			from (
+	 				select @rownum := @rownum + 1 as rownum, num, title, content, writer, password, file, hit, write_date, update_date, write_ip, update_ip
+	 				from board2, (select @rownum := 0) tmp
+	 				order by num desc
+	 			)  A
+	 	)B
+	 	where rownum >= #{startRow} and rownum <= ${endRow}
+	 ]]>
+	 </select> 
 	
 	<!-- 글 상세 -->
 	<select id="getBoard" resultType="com.spring.notice.vo.BoardVO">

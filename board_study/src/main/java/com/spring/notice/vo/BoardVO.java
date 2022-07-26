@@ -21,6 +21,7 @@ public class BoardVO {
 	private Timestamp update_date;
 	private String write_ip;
 	private String update_ip;
+	private int page;
 	
 	//메서드
 	public int getRownum() {
@@ -107,13 +108,18 @@ public class BoardVO {
 	public void setUpdate_ip(String update_ip) {
 		this.update_ip = update_ip;
 	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
 	
 	@Override
 	public String toString() {
 		return "BoardVO [rownum=" + rownum + ", num=" + num + ", title=" + title + ", content=" + content + ", writer="
 				+ writer + ", password=" + password + ", uploadFile=" + uploadFile + ", file=" + file + ", realPath="
 				+ realPath + ", hit=" + hit + ", write_date=" + write_date + ", update_date=" + update_date
-				+ ", write_ip=" + write_ip + ", update_ip=" + update_ip + "]";
+				+ ", write_ip=" + write_ip + ", update_ip=" + update_ip + ", page=" + page + "]";
 	}
-
 }

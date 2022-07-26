@@ -97,21 +97,21 @@
 		/*** 비밀번호 유효성 검사 ***/
 		var password_v = form.password.value;
 		
-		//입력을 안할 경우
+		//입력을 안한 경우
 		if(password_v == '' || password_v == null) {
 			alert("비밀번호를 입력해주세요.");
 			form.password.select();
 			return;
 		}
 		
-		//공백만 입력 된 경우
+		//공백만 입력된 경우
 		if(password_v.replace(blank_pattern,'') == "") {
 			alert("공백만 입력되었습니다.");
 			form.password.select();
 			return;
 		}
 		
-		//문자열에 공백이 있는 경우
+		//문자열에 공백이 입력 된 경우
 		if(blank_pattern.test(password_v) == true) {
 			alert("공백이 입력되었습니다.");
 			form.password.select();
@@ -182,7 +182,11 @@
 			}
 		}
 		
-     	form.submit(); 
+		var chk = confirm("등록 하시겠습니까?");
+		
+		if(chk) {
+			form.submit();
+		}		
 	}
 
 

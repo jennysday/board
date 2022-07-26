@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.notice.vo.BoardVO;
+import com.spring.notice.vo.PagingVO;
 
 @Repository
 
@@ -21,8 +22,8 @@ public class BoardMapper {
 	}
 	
 	//글 목록
-	public List<BoardVO> getBoardList() {
-		return mybatis.selectList("board.getBoardList");
+	public List<BoardVO> getBoardList(PagingVO paging) {
+		return mybatis.selectList("board.getBoardList", paging);
 	} 
 	
 	//글 상세

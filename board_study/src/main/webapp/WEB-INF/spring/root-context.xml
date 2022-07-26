@@ -25,7 +25,8 @@
             value="jdbc:mysql://127.0.0.1:3306/jenny12317?useSSL=false&amp;serverTimezone=UTC">
         </property>
         <property name="username" value="jenny12317"></property>
-        <property name="password" value="L6RY09R53LYO0E2NQJD321S0DNXYJQI53RLXL0W31DM1YG5LQE"></property>
+        <!-- <property name="password" value="L6RY09R53LYO0E2NQJD321S0DNXYJQI53RLXL0W31DM1YG5LQE"></property> -->
+        <property name="password" value="0000"></property>
     </bean> 
     
     <!-- mybatis SqlSessionFactoryBean -->
@@ -34,13 +35,12 @@
         <property name="dataSource" ref="dataSource"></property>
         <!-- mybatis용 파일을 로드하도록 설정 -->
         <!-- <property name="configLocation" value="classpath:/mybatis-config.xml" /> -->
- 		<property name="mapperLocations" value="classpath:mappers/Mapper.xml" /> 
+ 		<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml" /> 
 	</bean>
 
+	<!-- mybatis -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
  		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
-	
-	
-    
+
 </beans>
