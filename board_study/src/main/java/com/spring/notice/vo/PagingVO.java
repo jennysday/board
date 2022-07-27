@@ -1,8 +1,5 @@
 package com.spring.notice.vo;
 
-import org.apache.ibatis.type.Alias;
-
-@Alias("PagingVO")
 public class PagingVO {
 	
 	//필드
